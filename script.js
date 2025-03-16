@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const cellSize = height / 15;
 
     let camX = 0;
+    let lastTime = 0;
 
     const gameMap = [
         [
@@ -101,7 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
             this.velX = 0;
             this.velY = 0;
             this.speed = speed;
-            this.gravity = 2;
+            this.gravity = 100;
             this.nearWorldBounds = false;
         }
 
@@ -186,11 +187,11 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
 
-        movement() {
-            this.x += this.velX;
+        movement(deltaTime) {
+            this.x += this.velX * deltaTime;
             this.checkCollisionWall();
 
-            this.y += this.velY;
+            this.y += this.velY * deltaTime;
             this.physics();
         }
     }
@@ -217,12 +218,12 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    const player = new Player(width / 2, 350, height / 20, height / 20, 10);
+    const player = new Player(width / 2, 200, cellSize, cellSize, 750);
     const wizard = new ThingsWDialog(
         100,
-        (height / 15) * 11 - height / 20,
-        height / 20,
-        height / 20
+        (height / 15) * 10,
+        cellSize,
+        cellSize
     );
 
     const drawMap = () => {
@@ -255,7 +256,7 @@ document.addEventListener("DOMContentLoaded", () => {
         key[e.code] = false;
     });
 
-    const update = () => {
+    const update = (deltaTime) => {
         //player movement
         player.velX = 0;
 
@@ -266,7 +267,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         if (key["ArrowUp"] && player.checkCollisionGround()) {
-            player.velY = -28;
+            player.velY = -1500;
         }
 
         if (lerp(camX, -(player.x + player.width / 2 - width / 2), 0.2) < 0) {
@@ -277,7 +278,7 @@ document.addEventListener("DOMContentLoaded", () => {
             player.nearWorldBounds = true;
         }
 
-        player.movement();
+        player.movement(deltaTime);
         wizard.x = camX + 100;
 
         //draw elements
@@ -290,12 +291,15 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
-    const gameloop = () => {
+    const gameloop = (currTime) => {
+        const deltaTime = (currTime - lastTime) / 1000;
+        lastTime = currTime;
+
         ctx.clearRect(0, 0, width, height);
-        update();
+        update(deltaTime);
         drawMap();
-        window.requestAnimationFrame(gameloop);
+        requestAnimationFrame(gameloop);
     };
 
-    gameloop();
+    requestAnimationFrame(gameloop);
 });
