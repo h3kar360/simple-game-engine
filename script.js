@@ -9,22 +9,86 @@ document.addEventListener("DOMContentLoaded", () => {
     canvas.width = width;
     canvas.height = height;
 
-    const cellSize = height / 10;
+    const cellSize = height / 15;
 
     let camX = 0;
 
     const gameMap = [
-        // 0 = empty space, 1 = ground
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0],
-        [1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0, 0],
-        [1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-        [1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        ],
+        [
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        ],
+        [
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        ],
+        [
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        ],
+        [
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        ],
+        [
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        ],
+        [
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        ],
+        [
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        ],
+        [
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        ],
+        [
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        ],
+        [
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        ],
+        [
+            1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+            1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+            1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        ],
+        [
+            1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+            1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+            1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        ],
+        [
+            1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+            1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+            1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        ],
+        [
+            1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+            1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+            1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        ],
     ];
 
     class Player {
@@ -38,6 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
             this.velY = 0;
             this.speed = speed;
             this.gravity = 2;
+            this.nearWorldBounds = false;
         }
 
         getTileCoord() {
@@ -45,7 +110,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 left: Math.floor(this.x / cellSize),
                 right: Math.floor((this.x + this.width) / cellSize),
                 top: Math.floor(this.y / cellSize),
-                mid: Math.floor((this.y + this.height - 0.1) / cellSize),
+                mid: Math.floor((this.y + this.height - 1) / cellSize),
                 bottom: Math.floor((this.y + this.height) / cellSize),
             };
         }
@@ -53,7 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
         drawPlayer() {
             ctx.fillStyle = "white";
             ctx.fillRect(
-                width / 2 - this.width / 2,
+                !this.nearWorldBounds ? width / 2 - this.width / 2 : this.x,
                 this.y,
                 this.width,
                 this.height
@@ -103,7 +168,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 const col = bounds.left;
 
                 for (let row = bounds.top; row <= bounds.mid; row++) {
-                    if (gameMap[row] && gameMap[row][col] === 1) {
+                    if (
+                        (gameMap[row] && gameMap[row][col] === 1) ||
+                        !(col + 1)
+                    ) {
                         this.x = (col + 1) * cellSize + 0.001;
                         this.velX = 0;
                         break;
@@ -119,16 +187,43 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         movement() {
-            this.physics();
-
             this.x += this.velX;
             this.checkCollisionWall();
 
             this.y += this.velY;
+            this.physics();
         }
     }
 
-    const player = new Player(width / 2, 50, height / 20, height / 20, 10);
+    class ThingsWDialog {
+        constructor(x, y, width, height) {
+            this.x = x;
+            this.y = y;
+            this.width = width;
+            this.height = height;
+        }
+
+        draw() {
+            ctx.fillStyle = "blue";
+            ctx.fillRect(this.x, this.y, this.width, this.height);
+        }
+
+        async dialog() {
+            await document.fonts.load("18px pixelated-font");
+
+            ctx.fillStyle = "black";
+            ctx.font = "18px pixelated-font";
+            ctx.fillText("GoodWillarfun player!", this.x + 20, this.y - 30);
+        }
+    }
+
+    const player = new Player(width / 2, 350, height / 20, height / 20, 10);
+    const wizard = new ThingsWDialog(
+        100,
+        (height / 15) * 11 - height / 20,
+        height / 20,
+        height / 20
+    );
 
     const drawMap = () => {
         let groundX = camX;
@@ -139,7 +234,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     ctx.fillStyle = "brown";
                     ctx.fillRect(groundX, groundY, cellSize, cellSize);
                 }
-
                 groundX += cellSize;
             }
             groundY += cellSize;
@@ -162,6 +256,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     const update = () => {
+        //player movement
         player.velX = 0;
 
         if (key["ArrowRight"]) {
@@ -174,15 +269,30 @@ document.addEventListener("DOMContentLoaded", () => {
             player.velY = -28;
         }
 
-        camX = lerp(camX, -(player.x + player.width / 2 - width / 2), 0.25);
+        if (lerp(camX, -(player.x + player.width / 2 - width / 2), 0.2) < 0) {
+            camX = lerp(camX, -(player.x + player.width / 2 - width / 2), 0.2);
+            player.nearWorldBounds = false;
+        } else {
+            camX = camX;
+            player.nearWorldBounds = true;
+        }
 
         player.movement();
+        wizard.x = camX + 100;
+
+        //draw elements
+        wizard.draw();
+        player.drawPlayer();
+
+        //wizard dialog toggle
+        if (Math.abs(player.x - wizard.x) <= 200) {
+            wizard.dialog();
+        }
     };
 
     const gameloop = () => {
-        update();
         ctx.clearRect(0, 0, width, height);
-        player.drawPlayer();
+        update();
         drawMap();
         window.requestAnimationFrame(gameloop);
     };

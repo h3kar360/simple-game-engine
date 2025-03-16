@@ -1,0 +1,15 @@
+body,
+html {
+    margin: 0;
+    overflow: hidden;
+}
+
+canvas {
+    background-color: lightblue;
+}
+
+@font-face {
+    font-family: "pixelated-font";
+    src: url("./Assets/PixelatedEleganceRegular-ovyAA.ttf") format("truetype");
+    font-weight: none;
+}
